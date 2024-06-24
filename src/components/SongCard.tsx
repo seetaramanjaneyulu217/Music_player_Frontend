@@ -24,7 +24,7 @@ const SongCard = ({ song, index, dispatch }: SongCardProps) => {
     return () => {
       audio.removeEventListener("loadedmetadata", handleSongMetaData);
     };
-  }, []);
+  }, [song]);
 
   return (
     <div
