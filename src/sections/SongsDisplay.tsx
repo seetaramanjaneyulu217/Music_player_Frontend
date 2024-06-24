@@ -69,11 +69,11 @@ const SongsDisplay = () => {
       {/* for displaying songs */}
       <div className="mt-8 h-[550px] max-w-[360px] overflow-y-auto scrollbar">
         {songsType === "For You"
-          ? forYou.map((song: Song) => (
-              <SongCard key={song.id} song={song} dispatch={dispatch} />
+          ? forYou.map((song: Song, index: number) => (
+              <SongCard key={song.id} song={song} index={index} dispatch={dispatch} />
             ))
-          : topTracks.map((song: Song) => (
-              <SongCard key={song.id} song={song} dispatch={dispatch} />
+          : topTracks.map((song: Song, index: number) => (
+              <SongCard key={song.id} song={song} index={index} dispatch={dispatch} />
             ))}
       </div>
     </div>

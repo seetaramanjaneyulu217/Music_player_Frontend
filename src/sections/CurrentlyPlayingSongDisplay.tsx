@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Song } from "../types";
 import options from "../assets/options.svg";
 import backward from "../assets/backward.svg";
@@ -7,10 +7,14 @@ import play from '../assets/play.svg'
 import pause from "../assets/pause.svg";
 import forward from "../assets/forward.svg";
 import sound from "../assets/sound.svg";
+import { passSongIndexToStore } from "../store/slices/song";
 
 const CurrentlyPlayingSongDisplay = () => {
+
+  const dispatch = useDispatch()
   const songRef = useRef<HTMLAudioElement>(null);
   const seekBar = useRef<HTMLHRElement>(null);
+  const songIndex = useSelector((state: any) => state.songs.songIndex)
   const song: Song = useSelector((state: any) => state.songs.song);
   const [currentSongAction, setCurrentSongAction] = useState<string>("play")
 
@@ -88,11 +92,11 @@ const CurrentlyPlayingSongDisplay = () => {
             </div>
 
             <div className="flex items-center gap-x-3">
-              <img src={backward} alt="backward" className="cursor-pointer" />
+              <img onClick={() => dispatch(passSongIndexToStore({ songIndex: songIndex - 1 }))} src={backward} alt="backward" className="cursor-pointer" />
               <div onClick={() => setCurrentSongAction(prev => prev === "play" ? "pause" : "play")} className="border rounded-full w-10 h-10 bg-white flex justify-center items-center cursor-pointer">
                 <img src={currentSongAction === "play" ? pause : play} alt="options" />
               </div>
-              <img src={forward} alt="forward" className="cursor-pointer" />
+              <img onClick={() => dispatch(passSongIndexToStore({ songIndex: songIndex + 1 }))} src={forward} alt="forward" className="cursor-pointer" />
             </div>
 
             <div className="border rounded-full w-10 h-10 bg-[#FFFFFF1A] flex justify-center items-center cursor-pointer">

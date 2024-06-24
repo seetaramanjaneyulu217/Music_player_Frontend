@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Song } from "../types";
-import { passSongToStore } from "../store/slices/song";
+import { passInitialSongIndexToStore, passSongToStore } from "../store/slices/song";
 import { useSelector } from "react-redux";
 
 interface SongCardProps {
   song: Song;
+  index: number;
   dispatch: any;
 }
 
-const SongCard = ({ song, dispatch }: SongCardProps) => {
+const SongCard = ({ song, index, dispatch }: SongCardProps) => {
   const currentlyPlayingSong = useSelector((state: any) => state.songs.song);
   const [songDuration, setSongDuration] = useState<string>("");
 
@@ -27,8 +28,10 @@ const SongCard = ({ song, dispatch }: SongCardProps) => {
 
   return (
     <div
-      onClick={() =>
+      onClick={() => {
         dispatch(passSongToStore({ song: { ...song, duration: songDuration } }))
+        dispatch(passInitialSongIndexToStore({ songIndex: index }))
+      }
       }
       className={`flex justify-between mb-3 cursor-pointer p-3 ${
         currentlyPlayingSong.id === song.id && "bg-[#FFFFFF14] rounded-lg"
