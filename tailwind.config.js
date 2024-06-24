@@ -5,15 +5,14 @@ module.exports = {
   ],
   theme: {
     screens: {
-      'xs': '100px',
-      'sm': '350px',
-      'md': '640px',
-      'lg': '850px',
+      'xs': '150px',
+      'sm': '550px',
+      'md': '850px',
+      'lg': '1240px',
     },
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
+        inter: ['Inter', 'sans-serif']
       },
       fontWeight: {
         thin: 100,
