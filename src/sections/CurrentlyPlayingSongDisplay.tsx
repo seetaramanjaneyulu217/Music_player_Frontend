@@ -39,7 +39,6 @@ const CurrentlyPlayingSongDisplay = () => {
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (seekBar.current) seekBar.current.style.width = "0%";
     if (currentSongAction === "play") {
       interval = setInterval(() => {
         if (seekBar.current) {
@@ -54,7 +53,11 @@ const CurrentlyPlayingSongDisplay = () => {
     }
 
     return () => clearInterval(interval);
-  }, [song, currentSongAction, songIndex]);
+  }, [song, currentSongAction]);
+
+  useEffect(() => {
+    if (seekBar.current) seekBar.current.style.width = "0%";
+  }, [songIndex])
 
   useEffect(() => {
     if (songRef.current) {
@@ -66,7 +69,7 @@ const CurrentlyPlayingSongDisplay = () => {
   return (
     <>
       {song.name ? (
-        <div className="w-full md:w-6/12 px-20 py-24 mx-auto">
+        <div className="w-full flex flex-col justify-end items-center md:w-6/12 xs:px-0 xs:py-0 md:px-16 md:py-14 lg:px-20 lg:py-24 mx-auto">
           {/* for song name and author name */}
           <div className="font-inter">
             <p className="font-bold text-3xl">{song.name}</p>
@@ -144,7 +147,7 @@ const CurrentlyPlayingSongDisplay = () => {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center text-4xl mx-auto">
+        <div className="flex justify-center items-center my-auto text-4xl mx-auto">
           <p>Select any song to play</p>
         </div>
       )}

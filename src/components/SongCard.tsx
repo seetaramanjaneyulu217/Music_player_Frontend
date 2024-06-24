@@ -7,9 +7,10 @@ interface SongCardProps {
   song: Song;
   index: number;
   dispatch: any;
+  setOpenMenu?: any;
 }
 
-const SongCard = ({ song, index, dispatch }: SongCardProps) => {
+const SongCard = ({ song, index, dispatch, setOpenMenu }: SongCardProps) => {
   const currentlyPlayingSong = useSelector((state: any) => state.songs.song);
   const [songDuration, setSongDuration] = useState<string>("");
 
@@ -31,6 +32,8 @@ const SongCard = ({ song, index, dispatch }: SongCardProps) => {
       onClick={() => {
         dispatch(passSongToStore({ song: { ...song, duration: songDuration } }))
         dispatch(passInitialSongIndexToStore({ songIndex: index }))
+        if(setOpenMenu)
+          setOpenMenu(false)
       }
       }
       className={`flex justify-between mb-3 cursor-pointer p-3 ${
